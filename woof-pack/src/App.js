@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
+import ReactDOM from 'react-dom';
+import logo from './woofPack__logo.png';
 import './App.css';
 
 function App() {
@@ -8,16 +9,10 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+        Sign in with <a href="http://www.facebook.com">Facebook.</a>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button type="button" class="btn btn-secondary">Book a Service</button>
+      
       </header>
     </div>
   );
