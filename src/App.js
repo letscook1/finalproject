@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import logo from './woofPack__logo.png';
+import logo from './img/woofPack__logo.png';
 import './App.css';
 
 function App() {
