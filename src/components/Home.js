@@ -3,6 +3,7 @@ import logo from '../images/woofPack__logo.png';
 import '../App.css';
 
 class Home extends Component {
+
     render() {
       return (
         <div className="App">
@@ -12,12 +13,15 @@ class Home extends Component {
             Sign in with <a href="http://www.facebook.com">Facebook.</a>
             </p>
             <button type="button" className="btn btn-secondary">Book a Service</button>
+            <a href="/About">test</a>
           
           </header>
         </div>
       );
     }
   }
+
+
 
 
 export default Home;
