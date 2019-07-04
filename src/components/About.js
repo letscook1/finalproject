@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import logo from '../dog_01.png';
+import logo from '../images/dog_01.png';
 import logo2 from '../images/Path 358.png';
 import logo3 from '../images/Title Bullet Points Icon.png';
 import '../About.css';
@@ -15,8 +15,9 @@ class About extends Component {
           <img src={logo2} className="App-logo2" alt="logo" />
           </div>
           <div className="logo"><img src={logo} alt="logo" /></div>
+          <a href="/Login">
           <button type="button" className="btn btn-secondary">Next</button>
-        
+          </a>
        
         </section>
       </header>

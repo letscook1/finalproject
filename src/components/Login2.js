@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class Login extends Component {
+class Login2 extends Component {
     render(){
         return (
             <div className="App">
               <header className="App-header about">
                 <section className="Service">
                    <div className="containerLogin">
-                      <h1>We care for dogs in Cleveland. Let's create your account.</h1>
+                      <h1>Hello! Please tell us a little bit about yourself.</h1>
                     </div>
                     <div>
                         <form>
@@ -24,12 +24,14 @@ class Login extends Component {
                             <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                             <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                             </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <a href="/Login">
+                                <button type="submit" className="btn btn-outline-secondary">Back</button>
+                            </a>
                         </form>
                     </div>
 
                    
-                      <a href="/Login2">
+                      <a href="/">
                          <button type="button" className="btn btn-secondary">Already a member? Log in</button>
                      </a>
                    </section>
@@ -40,4 +42,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Login2;
