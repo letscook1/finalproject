@@ -10,15 +10,33 @@
 
 .App-logoImg {
 	margin-top: -1800px;
-	margin-left: -769px;
+	margin-left: 130px;
 }
 
 .App-Nav {
-	margin-top: -958px;
+	margin-top: -930px;
 	z-index: 1;
-	margin-left: 1000px;
+	margin-left: 1020px;
 }
 
 .App-logo {
 	z-index: -99;
+}
+
+.App-HomeText {
+	text-align: justify;
+	margin: 100px 0 0 1145px;
+	font-size: 55px;
+}
+
+.btn {
+	position: relative;
+	left: 1160px;
+}
+
+.App-Nav a {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: transparent;
+	margin: 0 0 0 5px;
 }
