@@ -24,9 +24,9 @@ class Home extends Component {
                 
               </div>
             <div className="App-HomeText">
-              <p>We care for your furry little loved ones while you're away</p>
+              <p>We care for <br />your furry little<br />loved ones while <br />you're away</p>
             </div>
-            
+
              <a href="/About">
             <button type="button" className="btn btn-light">Book a Service</button>
             </a>
