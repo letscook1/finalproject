@@ -3,10 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { unregister } from 'registerServiceWorker';
 import SettingsService from 'modules/settings/settingsService';
-import { i18n } from 'i18n';
+
 
 (async function() {
-  document.title = i18n('app.title');
+  document.title = ('app.title');
   await SettingsService.fetchAndApply();
 
   ReactDOM.render(<App />, document.getElementById('root'));
