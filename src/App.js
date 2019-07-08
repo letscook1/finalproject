@@ -3,7 +3,6 @@ import { configureStore, getHistory } from 'modules/store';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import RoutesComponent from 'view/shared/routes/RoutesComponent';
-import { LocaleProvider } from 'antd';
 
 const store = configureStore();
 
