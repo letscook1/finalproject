@@ -1,21 +1,37 @@
-import { connectRouter } from 'connected-react-router';
-import layout from 'modules/layout/layoutReducers';
-import auth from 'modules/auth/authReducers';
-import iam from 'modules/iam/iamReducers';
-import auditLog from 'modules/auditLog/auditLogReducers';
-import settings from 'modules/settings/settingsReducers';
-import walk from 'modules/walk/walkReducers';
-import pet from 'modules/pet/petReducers';
-import { combineReducers } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import initializers from 'modules/initializers';
+import createRootReducer from 'modules/reducers';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import thunkMiddleware from 'redux-thunk';
 
-export default history =>
-  combineReducers({
-    router: connectRouter(history),
-    layout,
-    auth,
-    iam,
-    auditLog,
-    settings,
-    walk,
-    pet
-  });
+const history = createBrowserHistory();
+
+let store;
+
+export function configureStore(preloadedState) {
+  const middlewares = [thunkMiddleware, routerMiddleware(history)].filter(
+    Boolean
+  );
+
+  store = createStore(
+    createRootReducer(history),
+    preloadedState,
+    composeWithDevTools(applyMiddleware(...middlewares))
+  );
+
+  for (const initializer of initializers) {
+    initializer(store);
+  }
+
+  return store;
+}
+
+export function getHistory() {
+  return history;
+}
+
+export default function getStore() {
+  return store;
+}
