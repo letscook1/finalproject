@@ -2,28 +2,16 @@ module.exports = {
   env: 'development',
 
   database: {
-    username: 'postgres',
-    dialect: 'postgres',
-    password: '',
+    username: 'root',
+    dialect: 'mysql',
+    password: 'j5dnek7g7qrwAhbC',
     database: 'development',
-    migrationHost: '<insert public ip here>',
     host:
-      '/cloudsql/<insert project id>:us-central1:<insert database id>',
+      '/cloudsql/woofpack:us-central1:woof-pack-dog-walking-app',
+    migrationHost: '146.148.32.151',
     logging: console.log,
     operatorsAliases: false,
   },
-
-  // database: {
-  //   username: 'root',
-  //   dialect: 'mysql',
-  //   password: '',
-  //   database: 'development',
-  //   host:
-  //     '/cloudsql/<project id>:us-central1:<database id>',
-  //   migrationHost: '<insert public ip here>',
-  //   logging: console.log,
-  //   operatorsAliases: false,
-  // },
 
   email: {
     comment: 'See https://nodemailer.com',
@@ -37,8 +25,7 @@ module.exports = {
 
   graphiql: 'true',
 
-  clientUrl:
-      '<insert client url here>',
+  clientUrl: '<insert client url here>',
 
   defaultUser: '<insert your email here>',
 };

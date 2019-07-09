@@ -1,6 +1,7 @@
 {
   "projects": {
-    "development": "<insert project id here>",
-    "production": "<insert project id here>"
+    "development": "woof-pack-dog-walking-app",
+    "production": "woof-pack-dog-walking-app
+"
   }
 }

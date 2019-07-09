@@ -2,26 +2,15 @@ module.exports = {
   env: 'localhost',
 
   database: {
-    username: 'postgres',
-    dialect: 'postgres',
-    password: '',
+    username: 'root',
+    dialect: 'mysql',
+    password: 'j5dnek7g7qrwAhbC',
     database: 'development',
     host: 'localhost',
     migrationHost: 'localhost',
     logging: console.log,
     operatorsAliases: false,
   },
-
-  // database: {
-  //   username: 'root',
-  //   dialect: 'mysql',
-  //   password: '',
-  //   database: 'development',
-  //   host: 'localhost',
-  //   migrationHost: 'localhost',
-  //   logging: console.log,
-  //   operatorsAliases: false,
-  // },
 
   email: {
     comment: 'See https://nodemailer.com',

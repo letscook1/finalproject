@@ -22,7 +22,7 @@ const en = {
   },
 
   app: {
-    title: 'Application',
+    title: 'Woof Pack',
   },
 
   entities: {
@@ -52,27 +52,27 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'owner': 'Owner',
-        'pet': 'Pet',
-        'dateRange': 'Date',
-        'date': 'Date',
-        'locationRange': 'Location',
-        'location': 'Location',
-        'clientNotes': 'ClientNotes',
-        'walkerNotes': 'WalkerNotes',
-        'photos': 'Photos',
-        'status': 'Status',
-        'feeRange': 'Fee',
-        'fee': 'Fee',
-        'receipt': 'Receipt',
+        owner: 'Owner',
+        pet: 'Pet',
+        dateRange: 'Date',
+        date: 'Date',
+        locationRange: 'Location',
+        location: 'Location',
+        clientNotes: 'ClientNotes',
+        walkerNotes: 'WalkerNotes',
+        photos: 'Photos',
+        status: 'Status',
+        feeRange: 'Fee',
+        fee: 'Fee',
+        receipt: 'Receipt',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
       enumerators: {
-        'status': {
-          'cancelled': 'Cancelled',
-          'completed': 'Completed',
+        status: {
+          cancelled: 'Cancelled',
+          completed: 'Completed',
         },
       },
       new: {
@@ -115,25 +115,25 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'owner': 'Owner',
-        'name': 'Name',
-        'gender': 'Gender',
-        'breed': 'Breed',
-        'size': 'Size',
-        'walks': 'Walks',
+        owner: 'Owner',
+        name: 'Name',
+        gender: 'Gender',
+        breed: 'Breed',
+        size: 'Size',
+        walks: 'Walks',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
       enumerators: {
-        'gender': {
-          'male': 'Male',
-          'female': 'Female',
+        gender: {
+          male: 'Male',
+          female: 'Female',
         },
-        'size': {
-          'small': 'Small',
-          'medium': 'Medium',
-          'large': 'Large',
+        size: {
+          small: 'Small',
+          medium: 'Medium',
+          large: 'Large',
         },
       },
       new: {
@@ -241,8 +241,8 @@ const en = {
   },
 
   iam: {
-    title: 'Identity and Access Management',
-    menu: 'IAM',
+    title: 'Users',
+    menu: 'Users',
     disable: 'Disable',
     disabled: 'Disabled',
     enabled: 'Enabled',
