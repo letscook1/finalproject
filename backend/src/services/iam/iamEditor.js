@@ -3,6 +3,7 @@ const assert = require('assert');
 const ValidationError = require('../../errors/validationError');
 const UserRepository = require('../../database/repositories/userRepository');
 const UserRoleRepository = require('../../database/repositories/userRoleRepository');
+const AuthFirebaseService = require('../../auth/authFirebaseService');
 
 module.exports = class IamEditor {
   constructor(currentUser, language) {
@@ -25,12 +26,18 @@ module.exports = class IamEditor {
       await this._loadUser();
       await this._updateAtDatabase();
 
-      await UserRepository.commitTransaction(this.transaction);
+      await UserRepository.commitTransaction(
+        this.transaction,
+      );
     } catch (error) {
-      await UserRepository.rollbackTransaction(this.transaction);
+      await UserRepository.rollbackTransaction(
+        this.transaction,
+      );
 
       throw error;
     }
+
+    await this._updateAtAuthentication();
   }
 
   get _roles() {
@@ -68,6 +75,15 @@ module.exports = class IamEditor {
         transaction: this.transaction,
       },
     );
+  }
+
+  async _updateAtAuthentication() {
+    if (this.user.authenticationUid) {
+      await AuthFirebaseService.updateUser(
+        this.user.authenticationUid,
+        this.user,
+      );
+    }
   }
 
   async _isRemovingOwnOwnerRole() {

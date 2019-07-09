@@ -1,12 +1,12 @@
 import Permissions from 'security/permissions';
-// import { i18n } from 'i18n';
+import { i18n } from 'i18n';
 const permissions = Permissions.values;
 
 const privateRoutes = [
   {
     path: '/',
     icon: 'home',
-    label: 'home.menu',
+    label: i18n('home.menu'),
     menu: {
       exact: true,
     },
@@ -29,7 +29,7 @@ const privateRoutes = [
     permissionRequired: permissions.iamRead,
     exact: true,
     icon: 'user-add',
-    label: 'iam.menu',
+    label: i18n('iam.menu'),
     menu: true,
   },
   {
@@ -65,7 +65,7 @@ const privateRoutes = [
   {
     path: '/audit-logs',
     icon: 'file-search',
-    label: 'auditLog.menu',
+    label: i18n('auditLog.menu'),
     loader: () => import('view/auditLog/AuditLogPage'),
     menu: true,
     permissionRequired: permissions.auditLogRead,
@@ -74,7 +74,7 @@ const privateRoutes = [
   {
     path: '/settings',
     icon: 'setting',
-    label: 'settings.menu',
+    label: i18n('settings.menu'),
     loader: () => import('view/settings/SettingsFormPage'),
     permissionRequired: permissions.settingsEdit,
     menu: true,
@@ -86,7 +86,7 @@ const privateRoutes = [
     permissionRequired: permissions.walkRead,
     exact: true,
     icon: 'right',
-    label: 'entities.walk.menu',
+    label: i18n('entities.walk.menu'),
     menu: true,
   },
   {
@@ -125,7 +125,7 @@ const privateRoutes = [
     permissionRequired: permissions.petRead,
     exact: true,
     icon: 'right',
-    label: 'entities.pet.menu',
+    label: i18n('entities.pet.menu'),
     menu: true,
   },
   {
@@ -189,14 +189,6 @@ const emailUnverifiedRoutes = [
 ];
 
 const simpleRoutes = [
-  {
-    path: '/auth/password-reset',
-    loader: () => import('view/auth/PasswordResetPage'),
-  },
-  {
-    path: '/auth/verify-email',
-    loader: () => import('view/auth/VerifyEmailPage'),
-  },
   {
     path: '/403',
     loader: () => import('view/shared/errors/Error403Page'),

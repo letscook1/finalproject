@@ -2,14 +2,28 @@ module.exports = {
   env: 'production',
 
   database: {
-    username: 'root',
-    dialect: 'mysql',
-    password: 'Veganism4Life!',
-    database: 'production',
-    host: '<insert public ip here>',
+    username: 'postgres',
+    dialect: 'postgres',
+    password: '',
+    database: 'development',
+    migrationHost: '<insert public ip here>',
+    host:
+      '/cloudsql/<insert project id>:us-central1:<insert database id>',
     logging: console.log,
     operatorsAliases: false,
   },
+
+  // database: {
+  //   username: 'root',
+  //   dialect: 'mysql',
+  //   password: '',
+  //   database: 'development',
+  //   host:
+  //     '/cloudsql/<project id>:us-central1:<database id>',
+  //   migrationHost: '<insert public ip here>',
+  //   logging: console.log,
+  //   operatorsAliases: false,
+  // },
 
   email: {
     comment: 'See https://nodemailer.com',
@@ -23,11 +37,8 @@ module.exports = {
 
   graphiql: false,
 
-  clientUrl: '<insert client url here>',
+  clientUrl:
+      '<insert client url here>',
 
   defaultUser: null,
-
-  uploadDir: '/storage',
-
-  authJwtSecret: '<place a generated random value here>',
 };

@@ -1,4 +1,4 @@
-// import { i18n } from 'i18n';
+import { i18n } from 'i18n';
 import IdField from 'modules/shared/fields/idField';
 import DateTimeField from 'modules/shared/fields/dateTimeField';
 import DateTimeRangeField from 'modules/shared/fields/dateTimeRangeField';
@@ -8,69 +8,40 @@ import RelationToOneField from 'modules/shared/fields/relationToOneField';
 import RelationToManyField from 'modules/shared/fields/relationToManyField';
 
 function label(name) {
-  return `entities.pet.fields.${name}`;
+  return i18n(`entities.pet.fields.${name}`);
 }
 
 function enumeratorLabel(name, value) {
-  return `entities.pet.enumerators.${name}.${value}`;
+  return i18n(`entities.pet.enumerators.${name}.${value}`);
 }
 
 const fields = {
   id: new IdField('id', label('id')),
   owner: new RelationToOneField('owner', label('owner'), {
-    required: true,
+    "required": true
   }),
   name: new StringField('name', label('name'), {
-    required: true,
-    max: 255,
+    "required": true,
+    "max": 255
   }),
-  gender: new EnumeratorField(
-    'gender',
-    label('gender'),
-    [
-      {
-        id: 'male',
-        label: enumeratorLabel('gender', 'male'),
-      },
-      {
-        id: 'female',
-        label: enumeratorLabel('gender', 'female'),
-      },
-    ],
-    {
-      required: true,
-    },
-  ),
+  gender: new EnumeratorField('gender', label('gender'), [
+    { id: 'male', label: enumeratorLabel('gender', 'male') },
+    { id: 'female', label: enumeratorLabel('gender', 'female') },
+  ],{
+    "required": true
+  }),
   breed: new StringField('breed', label('breed'), {
-    required: true,
-    max: 255,
+    "required": true,
+    "max": 255
   }),
-  size: new EnumeratorField(
-    'size',
-    label('size'),
-    [
-      {
-        id: 'small',
-        label: enumeratorLabel('size', 'small'),
-      },
-      {
-        id: 'medium',
-        label: enumeratorLabel('size', 'medium'),
-      },
-      {
-        id: 'large',
-        label: enumeratorLabel('size', 'large'),
-      },
-    ],
-    {
-      required: true,
-    },
-  ),
-  walks: new RelationToManyField(
-    'walks',
-    label('walks'),
-    {},
-  ),
+  size: new EnumeratorField('size', label('size'), [
+    { id: 'small', label: enumeratorLabel('size', 'small') },
+    { id: 'medium', label: enumeratorLabel('size', 'medium') },
+    { id: 'large', label: enumeratorLabel('size', 'large') },
+  ],{
+    "required": true
+  }),
+  walks: new RelationToManyField('walks', label('walks'), {}),
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),
@@ -83,6 +54,7 @@ const fields = {
     'createdAtRange',
     label('createdAtRange'),
   ),
+
 };
 
 export default {

@@ -1,5 +1,3 @@
-const os = require('os');
-
 module.exports = {
   env: 'test',
 
@@ -21,8 +19,4 @@ module.exports = {
   clientUrl: '<insert client url here>',
 
   defaultUser: '<insert your email here>',
-
-  uploadDir: os.tmpdir(),
-
-  authJwtSecret: '<place a generated random value here>',
 };

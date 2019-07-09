@@ -518,6 +518,21 @@ const ptBR = {
   imagesViewer: {
     noImage: 'Sem imagem',
   },
+
+  firebaseErrors: {
+    'auth/user-disabled': 'Sua conta está desativada',
+    'auth/user-not-found': `Desculpe, não reconhecemos suas credenciais`,
+    'auth/wrong-password': `Desculpe, não reconhecemos suas credenciais`,
+    'auth/weak-password': 'Esta senha é muito fraca',
+    'auth/email-already-in-use':
+      'O email já está sendo usado',
+    'auth/invalid-email':
+      'Por favor forneça um email válido',
+    'auth/account-exists-with-different-credential':
+      'O email já está em uso para um método de autenticação diferente.',
+    'auth/credential-already-in-use':
+      'Credenciais já estão em uso',
+  },
 };
 
 export default ptBR;

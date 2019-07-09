@@ -1,9 +1,8 @@
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 import * as uuid from 'uuid/v4';
 import { i18n } from 'i18n';
 import filesize from 'filesize';
-import { AuthToken } from 'modules/auth/authToken';
-import Axios from 'axios';
-import config from 'config';
 
 function extractExtensionFrom(filename) {
   if (!filename) {
@@ -62,52 +61,46 @@ export default class FileUploader {
       return;
     }
 
+    const ref = firebase.storage().ref();
     const extension = extractExtensionFrom(
       request.file.name,
     );
     const id = uuid();
-    const filename = `${id}.${extension}`;
-    const privateUrl = `${path}/${filename}`;
+    const fullPath = `${path}/${id}.${extension}`;
+    const task = ref.child(fullPath).put(request.file);
 
-    this.uploadToServer(request.file, path, filename)
-      .then((publicUrl) => {
-        request.onSuccess();
-        onSuccess({
-          id: id,
-          name: request.file.name,
-          sizeInBytes: request.file.size,
-          privateUrl,
-          publicUrl,
-          new: true,
-        });
-      })
-      .catch((error) => {
+    task.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        const percent =
+          (snapshot.bytesTransferred /
+            snapshot.totalBytes) *
+          100;
+        request.onProgress({ percent });
+      },
+      (error) => {
         request.onError(error);
         onError(error);
-      });
-  }
-
-  static async uploadToServer(file, path, filename) {
-    const token = await AuthToken.get();
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('filename', filename);
-    await Axios.post(
-      `${config.backendUrl}/upload/${path}`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          authorization: token ? `Bearer ${token}` : '',
-        },
+      },
+      () => {
+        task.snapshot.ref
+          .getDownloadURL()
+          .then((url) => {
+            request.onSuccess();
+            onSuccess({
+              id: id,
+              name: request.file.name,
+              sizeInBytes: task.snapshot.totalBytes,
+              privateUrl: fullPath,
+              publicUrl: url,
+              new: true,
+            });
+          })
+          .catch((error) => {
+            request.onError(error);
+            onError(error);
+          });
       },
     );
-
-    const privateUrl = `${path}/${filename}`;
-
-    return `${
-      config.backendUrl
-    }/download?privateUrl=${privateUrl}`;
   }
 }

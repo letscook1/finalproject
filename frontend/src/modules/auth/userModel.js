@@ -55,7 +55,7 @@ class EmailsField extends StringArrayField {
 }
 
 function label(name) {
-  return `user.fields.${name}`;
+  return i18n(`user.fields.${name}`);
 }
 
 const fields = {
@@ -95,16 +95,16 @@ const fields = {
     'disabled',
     label('status'),
     {
-      noLabel: 'user.enabled',
-      yesLabel: 'user.disabled',
+      noLabel: i18n('user.enabled'),
+      yesLabel: i18n('user.disabled'),
     },
   ),
   disabled: new BooleanField(
     'disabled',
     label('disabled'),
     {
-      noLabel: 'user.enabled',
-      yesLabel: 'user.disabled',
+      noLabel: i18n('user.enabled'),
+      yesLabel: i18n('user.disabled'),
     },
   ),
   phoneNumber: new StringField(
@@ -150,11 +150,11 @@ const fields = {
   status: new EnumeratorField('status', label('status'), [
     {
       id: 'enabled',
-      label: 'user.enabled',
+      label: i18n('user.enabled'),
     },
     {
       id: 'disabled',
-      label: 'user.disabled',
+      label: i18n('user.disabled'),
     },
   ]),
 };

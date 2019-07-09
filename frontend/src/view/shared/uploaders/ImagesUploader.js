@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Upload, Icon, Modal } from 'antd';
-import FileUploader from 'modules/shared/fileUpload/fileUploader';
+import FileUploader from 'modules/shared/firebase/firebaseFileUploader';
 import Errors from 'modules/shared/error/errors';
 import ImagesUploaderWrapper from '../styles/ImagesUploaderWrapper';
 import { i18n } from 'i18n';

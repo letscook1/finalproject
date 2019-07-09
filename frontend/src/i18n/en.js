@@ -514,6 +514,19 @@ const en = {
   imagesViewer: {
     noImage: 'No image',
   },
+
+  firebaseErrors: {
+    'auth/user-disabled': 'Your account is disabled',
+    'auth/user-not-found': `Sorry, we don't recognize your credentials`,
+    'auth/wrong-password': `Sorry, we don't recognize your credentials`,
+    'auth/weak-password': 'This password is too weak',
+    'auth/email-already-in-use': 'Email is already in use',
+    'auth/invalid-email': 'Please provide a valid email',
+    'auth/account-exists-with-different-credential':
+      'Email is already in use for a different authentication method.',
+    'auth/credential-already-in-use':
+      'Credentials are already in use',
+  },
 };
 
 export default en;

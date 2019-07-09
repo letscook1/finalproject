@@ -5,7 +5,6 @@ const FileRepository = require('./fileRepository');
 const AuditLogRepository = require('./auditLogRepository');
 const SequelizeFilter = require('../utils/sequelizeFilter');
 const SequelizeAutocompleteFilter = require('../utils/sequelizeAutocompleteFilter');
-const crypto = require('crypto');
 
 module.exports = class UserRepository extends AbstractRepository {
   static async create(data, options) {
@@ -65,14 +64,6 @@ module.exports = class UserRepository extends AbstractRepository {
         email: data.email,
         firstName: data.firstName,
         authenticationUid: data.authenticationUid,
-        password: data.password,
-      },
-      { transaction: this.getTransaction(options) },
-    );
-
-    await user.update(
-      {
-        authenticationUid: user.id,
       },
       { transaction: this.getTransaction(options) },
     );
@@ -83,7 +74,6 @@ module.exports = class UserRepository extends AbstractRepository {
       options,
     );
 
-    delete user.password;
     await AuditLogRepository.log(
       {
         entityName: 'user',
@@ -148,15 +138,18 @@ module.exports = class UserRepository extends AbstractRepository {
     return this.findById(user.id, options);
   }
 
-  static async updatePassword(id, password, options) {
+  static async updateAuthenticationUid(
+    id,
+    authenticationUid,
+    options,
+  ) {
     const user = await models.user.findByPk(id, {
       transaction: this.getTransaction(options),
     });
 
     await user.update(
       {
-        password,
-        authenticationUid: id,
+        authenticationUid,
         updatedById: this.getCurrentUser(options).id,
       },
       { transaction: this.getTransaction(options) },
@@ -169,93 +162,13 @@ module.exports = class UserRepository extends AbstractRepository {
         action: AuditLogRepository.UPDATE,
         values: {
           id,
-          authenticationUid: id,
+          authenticationUid,
         },
       },
       options,
     );
 
     return this.findById(user.id, options);
-  }
-
-  static async generateEmailVerificationToken(
-    email,
-    options,
-  ) {
-    const user = await models.user.findOne({
-      where: {email}
-    }, {
-      transaction: this.getTransaction(options),
-    });
-
-    const emailVerificationToken = crypto
-      .randomBytes(20)
-      .toString('hex');
-    const emailVerificationTokenExpiresAt =
-      Date.now() + 360000;
-
-    await user.update(
-      {
-        emailVerificationToken,
-        emailVerificationTokenExpiresAt,
-        updatedById: this.getCurrentUser(options).id,
-      },
-      { transaction: this.getTransaction(options) },
-    );
-
-    await AuditLogRepository.log(
-      {
-        entityName: 'user',
-        entityId: user.id,
-        action: AuditLogRepository.UPDATE,
-        values: {
-          id: user.id,
-          emailVerificationToken,
-          emailVerificationTokenExpiresAt,
-        },
-      },
-      options,
-    );
-
-    return emailVerificationToken;
-  }
-
-  static async generatePasswordResetToken(email, options) {
-    const user = await models.user.findOne({
-      where: {email}
-    }, {
-      transaction: this.getTransaction(options),
-    });
-
-    const passwordResetToken = crypto
-      .randomBytes(20)
-      .toString('hex');
-    const passwordResetTokenExpiresAt = Date.now() + 360000;
-
-    await user.update(
-      {
-        passwordResetToken,
-        passwordResetTokenExpiresAt,
-        updatedById: this.getCurrentUser(options).id,
-      },
-      { transaction: this.getTransaction(options) },
-    );
-
-    await AuditLogRepository.log(
-      {
-        entityName: 'user',
-        entityId: user.id,
-        action: AuditLogRepository.UPDATE,
-        values: {
-          id: user.id,
-          passwordResetToken,
-          passwordResetTokenExpiresAt,
-        },
-      },
-      options,
-    );
-
-    return passwordResetToken;
   }
 
   static async updateStatus(id, disabled, options) {
@@ -555,78 +468,6 @@ module.exports = class UserRepository extends AbstractRepository {
     });
 
     return users;
-  }
-
-  static async findByPasswordResetToken(token, options) {
-    const record = await models.user.findOne(
-      {
-        where: {
-          passwordResetToken: token,
-          passwordResetTokenExpiresAt: {
-            [models.Sequelize.Op.gt]: Date.now(),
-          },
-        },
-      },
-      { transaction: this.getTransaction(options) },
-    );
-
-    return this._fillNonTableAttributesForRecord(
-      record,
-      ['roles'],
-      options,
-    );
-  }
-
-  static async findByEmailVerificationToken(
-    token,
-    options,
-  ) {
-    const record = await models.user.findOne(
-      {
-        where: {
-          emailVerificationToken: token,
-          emailVerificationTokenExpiresAt: {
-            [models.Sequelize.Op.gt]: Date.now(),
-          },
-        },
-      },
-      { transaction: this.getTransaction(options) },
-    );
-
-    return this._fillNonTableAttributesForRecord(
-      record,
-      ['roles'],
-      options,
-    );
-  }
-
-  static async markEmailVerified(id, options) {
-    const user = await models.user.findByPk(id, {
-      transaction: this.getTransaction(options),
-    });
-
-    await user.update(
-      {
-        emailVerified: true,
-        updatedById: this.getCurrentUser(options).id,
-      },
-      { transaction: this.getTransaction(options) },
-    );
-
-    await AuditLogRepository.log(
-      {
-        entityName: 'user',
-        entityId: user.id,
-        action: AuditLogRepository.UPDATE,
-        values: {
-          id,
-          emailVerified: true,
-        },
-      },
-      options,
-    );
-
-    return true;
   }
 
   static async count(filter, options) {

@@ -23,7 +23,7 @@ class Roles {
       return roleId;
     }
 
-    return `roles.${roleId}.label`;
+    return i18n(`roles.${roleId}.label`);
   }
 
   static descriptionOf(roleId) {
@@ -31,7 +31,7 @@ class Roles {
       return roleId;
     }
 
-    return `roles.${roleId}.description`;
+    return i18n(`roles.${roleId}.description`);
   }
 
   static get selectOptions() {

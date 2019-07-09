@@ -1,21 +1,31 @@
-const os = require('os');
-
 module.exports = {
   env: 'localhost',
 
   database: {
-    username: 'root',
-    dialect: 'mysql',
-    password: 'Veganism4Life!',
+    username: 'postgres',
+    dialect: 'postgres',
+    password: '',
     database: 'development',
     host: 'localhost',
+    migrationHost: 'localhost',
     logging: console.log,
     operatorsAliases: false,
   },
 
+  // database: {
+  //   username: 'root',
+  //   dialect: 'mysql',
+  //   password: '',
+  //   database: 'development',
+  //   host: 'localhost',
+  //   migrationHost: 'localhost',
+  //   logging: console.log,
+  //   operatorsAliases: false,
+  // },
+
   email: {
     comment: 'See https://nodemailer.com',
-    from: 'letscook1@hotmail.com',
+    from: '<insert your email here>',
     host: null,
     auth: {
       user: null,
@@ -25,11 +35,7 @@ module.exports = {
 
   graphiql: true,
 
-  clientUrl: 'https://woofpackfinalproject.herokuapp.com/',
+  clientUrl: '<insert client url here>',
 
-  defaultUser: 'letscook1@hotmail.com',
-
-  uploadDir: os.tmpdir(),
-
-  authJwtSecret: '456kjalkjda',
+  defaultUser: '<insert your email here>',
 };

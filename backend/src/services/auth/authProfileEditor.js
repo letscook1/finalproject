@@ -1,5 +1,6 @@
 const assert = require('assert');
 const UserRepository = require('../../database/repositories/userRepository');
+const AuthFirebaseService = require('../../auth/authFirebaseService');
 
 module.exports = class AuthProfileEditor {
   constructor(currentUser, language) {
@@ -29,6 +30,8 @@ module.exports = class AuthProfileEditor {
       );
       throw error;
     }
+
+    await this._updateAtAuthentication();
   }
 
   async _loadUser() {
@@ -47,6 +50,15 @@ module.exports = class AuthProfileEditor {
         transaction: this.transaction,
       },
     );
+  }
+
+  async _updateAtAuthentication() {
+    if (this.user.authenticationUid) {
+      await AuthFirebaseService.updateUser(
+        this.user.authenticationUid,
+        this.user,
+      );
+    }
   }
 
   async _validate() {

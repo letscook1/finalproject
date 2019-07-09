@@ -3,11 +3,11 @@ import DateTimeRangeField from 'modules/shared/fields/dateTimeRangeField';
 import IdField from 'modules/shared/fields/idField';
 import JsonField from 'modules/shared/fields/jsonField';
 import StringField from 'modules/shared/fields/stringField';
-// import { i18n } from 'i18n';
+import { i18n } from 'i18n';
 import StringArrayField from 'modules/shared/fields/stringArrayField';
 
 function label(name) {
-  return `auditLog.fields.${name}`;
+  return i18n(`auditLog.fields.${name}`);
 }
 
 const fields = {

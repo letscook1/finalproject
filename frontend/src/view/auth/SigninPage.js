@@ -1,4 +1,12 @@
-import { Button, Checkbox, Form } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Divider,
+  Form,
+  Icon,
+  Spin,
+  Tooltip,
+} from 'antd';
 import { Formik } from 'formik';
 import actions from 'modules/auth/authActions';
 import model from 'modules/auth/userModel';
@@ -11,6 +19,7 @@ import Content from 'view/auth/styles/Content';
 import Logo from 'view/auth/styles/Logo';
 import OtherActions from 'view/auth/styles/OtherActions';
 import SigninPageWrapper from 'view/auth/styles/SigninPageWrapper';
+import SocialButtons from 'view/auth/styles/SocialButtons';
 import I18nFlags from 'view/layout/I18nFlags';
 import InputFormItem, {
   InputFormItemNotFast,
@@ -45,6 +54,11 @@ class SigninPage extends Component {
 
   initialValues = () => {
     return { email: '', password: '', rememberMe: true };
+  };
+
+  doSigninWithSocial = (provider, rememberMe) => {
+    const { dispatch } = this.props;
+    dispatch(actions.doSigninSocial(provider, rememberMe));
   };
 
   doSubmit = ({ email, password, rememberMe }) => {
@@ -118,6 +132,68 @@ class SigninPage extends Component {
                 >
                   {i18n('auth.signin')}
                 </Button>
+
+                <Divider style={{ margin: '24px 0' }}>
+                  {i18n('common.or')}
+                </Divider>
+
+                <Spin
+                  spinning={this.props.loading}
+                  indicator={<div />}
+                >
+                  <SocialButtons>
+                    <Tooltip
+                      placement="top"
+                      title="Facebook"
+                    >
+                      <Icon
+                        type="facebook"
+                        style={{
+                          color: '#3B5998',
+                        }}
+                        onClick={() =>
+                          this.doSigninWithSocial(
+                            'facebook',
+                            form.values.rememberMe,
+                          )
+                        }
+                      />
+                    </Tooltip>
+
+                    <Tooltip placement="top" title="Google">
+                      <Icon
+                        type="google"
+                        style={{
+                          color: '#DB4437',
+                        }}
+                        onClick={() =>
+                          this.doSigninWithSocial(
+                            'google',
+                            form.values.rememberMe,
+                          )
+                        }
+                      />
+                    </Tooltip>
+
+                    <Tooltip
+                      placement="top"
+                      title="Twitter"
+                    >
+                      <Icon
+                        type="twitter"
+                        style={{
+                          color: '#1DA1F2',
+                        }}
+                        onClick={() =>
+                          this.doSigninWithSocial(
+                            'twitter',
+                            form.values.rememberMe,
+                          )
+                        }
+                      />
+                    </Tooltip>
+                  </SocialButtons>
+                </Spin>
 
                 <OtherActions>
                   <Link to="/auth/signup">

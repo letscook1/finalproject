@@ -1,3 +1,4 @@
+const AuthFirebaseService = require('./authFirebaseService');
 const config = require('../../config')();
 const AuthService = require('../services/auth/authService');
 
@@ -14,7 +15,7 @@ module.exports = async (req, res, next) => {
 
     if (defaultUser) {
       try {
-        const currentUser = await AuthService.findByEmail(
+        const authUser = await AuthFirebaseService.getUserByEmail(
           defaultUser,
         );
 
@@ -22,7 +23,11 @@ module.exports = async (req, res, next) => {
           `Authenticated with default user: ${defaultUser}`,
         );
 
-        if (currentUser && currentUser.disabled) {
+        const currentUser = await AuthService.findOrCreateFromAuth(
+          authUser.uid,
+        );
+
+        if (currentUser.disabled) {
           throw new Error(
             `User '${currentUser.email}' is disabled`,
           );
@@ -61,11 +66,15 @@ module.exports = async (req, res, next) => {
   }
 
   try {
-    const currentUser = await AuthService.findByToken(
+    const { uid } = await AuthFirebaseService.verifyIdToken(
       idToken,
     );
 
-    if (currentUser && currentUser.disabled) {
+    const currentUser = await AuthService.findOrCreateFromAuth(
+      uid,
+    );
+
+    if (currentUser.disabled) {
       throw new Error(
         `User '${currentUser.email}' is disabled`,
       );
@@ -75,7 +84,10 @@ module.exports = async (req, res, next) => {
 
     return next();
   } catch (error) {
-    console.error('Error while verifying ID token:', error);
+    console.error(
+      'Error while verifying Firebase ID token:',
+      error,
+    );
 
     res.status(403).send('Unauthorized');
   }
