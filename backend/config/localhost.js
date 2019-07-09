@@ -3,7 +3,6 @@ const os = require('os');
 module.exports = {
   env: 'localhost',
 
-
   database: {
     username: 'root',
     dialect: 'mysql',
@@ -16,7 +15,7 @@ module.exports = {
 
   email: {
     comment: 'See https://nodemailer.com',
-    from: '<insert your email here>',
+    from: 'letscook1@hotmail.com',
     host: null,
     auth: {
       user: null,
@@ -26,11 +25,11 @@ module.exports = {
 
   graphiql: true,
 
-  clientUrl: '<insert client url here>',
+  clientUrl: 'https://woofpackfinalproject.herokuapp.com/',
 
-  defaultUser: '<insert your email here>',
+  defaultUser: 'letscook1@hotmail.com',
 
   uploadDir: os.tmpdir(),
 
-  authJwtSecret: '<place a generated random value here>',
+  authJwtSecret: '456kjalkjda',
 };
