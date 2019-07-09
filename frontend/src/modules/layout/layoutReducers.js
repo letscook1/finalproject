@@ -1,9 +1,9 @@
 import actions from 'modules/layout/layoutActions';
-import { getLanguageCode } from 'i18n';
+// import { getLanguageCode } from 'i18n';
 
 const initialData = {
   menuVisible: true,
-  language: getLanguageCode(),
+  // language: getLanguageCode(),
   loading: false,
 };
 

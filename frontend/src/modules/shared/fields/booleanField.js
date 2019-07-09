@@ -1,6 +1,6 @@
 import GenericField from 'modules/shared/fields/genericField';
 import * as yup from 'yup';
-import { i18n } from 'i18n';
+// import { i18n } from 'i18n';
 
 export default class BooleanField extends GenericField {
   constructor(
@@ -10,8 +10,8 @@ export default class BooleanField extends GenericField {
   ) {
     super(name, label);
 
-    this.yesLabel = yesLabel || i18n('common.yes');
-    this.noLabel = noLabel || i18n('common.no');
+    this.yesLabel = yesLabel || 'common.yes';
+    this.noLabel = noLabel || 'common.no';
   }
 
   forTable(overrides) {

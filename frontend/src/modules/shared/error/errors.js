@@ -1,17 +1,17 @@
 import Message from 'view/shared/message';
 import { getHistory } from 'modules/store';
-import { i18n } from 'i18n';
+// import { i18n } from 'i18n';
 
-const DEFAULT_ERROR_MESSAGE = i18n(
-  'errors.defaultErrorMessage',
-);
+// const DEFAULT_ERROR_MESSAGE = i18n(
+//   'errors.defaultErrorMessage',
+// );
 
 function selectErrorMessage(error) {
   if (error && error.response && error.response.data) {
     return error.response.data;
   }
 
-  return error.message || DEFAULT_ERROR_MESSAGE;
+  // return error.message || DEFAULT_ERROR_MESSAGE;
 }
 
 function selectErrorCode(error) {

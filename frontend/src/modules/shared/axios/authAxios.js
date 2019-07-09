@@ -1,7 +1,7 @@
 import { AuthToken } from 'modules/auth/authToken';
 import Axios from 'axios';
 import config from 'config';
-import { getLanguageCode } from 'i18n';
+// import { getLanguageCode } from 'i18n';
 import Qs from 'qs';
 import * as moment from 'moment';
 
@@ -15,7 +15,7 @@ const authAxios = Axios.create({
           value instanceof moment ||
           value instanceof Date
         ) {
-          return value.toISOString();
+          return value.toString();
         }
 
         return value;
@@ -32,7 +32,7 @@ authAxios.interceptors.request.use(
       options.headers['Authorization'] = `Bearer ${token}`;
     }
 
-    options.headers['Accept-Language'] = getLanguageCode();
+    // options.headers['Accept-Language'] = getLanguageCode();
 
     return options;
   },
