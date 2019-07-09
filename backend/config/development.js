@@ -7,7 +7,7 @@ module.exports = {
     password: 'j5dnek7g7qrwAhbC',
     database: 'development',
     host:
-      '/cloudsql/woofpack:us-central1:woof-pack-dog-walking-app',
+    '146.148.32.151' ,
     migrationHost: '146.148.32.151',
     logging: console.log,
     operatorsAliases: false,

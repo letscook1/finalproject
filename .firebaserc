@@ -1,7 +1,6 @@
 {
   "projects": {
     "development": "woof-pack-dog-walking-app",
-    "production": "woof-pack-dog-walking-app
-"
+    "production": "woof-pack-dog-walking-app"
   }
 }
