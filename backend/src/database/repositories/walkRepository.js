@@ -410,7 +410,7 @@ class WalkRepository extends AbstractRepository {
         attributes: requestedAttributesInTable,
         limit: limit ? Number(limit) : undefined,
 
-        offset: offset || undefined,
+        offset: offset ? Number(offset) : undefined,
         order: orderBy
           ? [orderBy.split('_')]
           : [['createdAt', 'DESC']],
