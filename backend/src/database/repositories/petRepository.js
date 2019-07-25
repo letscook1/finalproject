@@ -405,8 +405,7 @@ class PetRepository extends AbstractRepository {
       include,
       attributes: requestedAttributesInTable,
       limit: limit ? Number(limit) : undefined,
-
-      offset: offset || undefined,
+      offset: offset ? Number(offset) : undefined,
       order: orderBy
         ? [orderBy.split('_')]
         : [['createdAt', 'DESC']],
@@ -437,7 +436,7 @@ class PetRepository extends AbstractRepository {
     const records = await models.pet.findAll({
       attributes: ['id', 'name'],
       where: filter.getWhere(),
-      limit: limit || undefined,
+      limit: limit ? Number(limit) : undefined,
       orderBy: [['name', 'ASC']],
     });
 

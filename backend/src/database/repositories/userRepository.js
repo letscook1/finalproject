@@ -383,8 +383,7 @@ module.exports = class UserRepository extends AbstractRepository {
         where: sequelizeFilter.getWhere(),
         include: sequelizeFilter.getInclude(),
         limit: limit ? Number(limit) : undefined,
-
-        offset: offset || undefined,
+        offset: offset ? Number(offset) : undefined,
         order: orderBy
           ? [orderBy.split('_')]
           : [['createdAt', 'DESC']],
@@ -415,7 +414,7 @@ module.exports = class UserRepository extends AbstractRepository {
     const users = await models.user.findAll({
       attributes: ['id', 'fullName', 'email'],
       where: filter.getWhere(),
-      limit: limit || undefined,
+      limit: limit ? Number(limit) : undefined,
       orderBy: [['fullName', 'ASC']],
     });
 

@@ -91,8 +91,7 @@ module.exports = class AuditLogRepository extends AbstractRepository {
       where: sequelizeFilter.getWhere(),
       include: sequelizeFilter.getInclude(),
       limit: limit ? Number(limit) : undefined,
-
-      offset: offset || undefined,
+      offset: offset ? Number(offset) : undefined,
       order: orderBy
         ? [orderBy.split('_')]
         : [['timestamp', 'DESC']],
