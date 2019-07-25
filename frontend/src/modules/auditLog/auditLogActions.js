@@ -72,10 +72,10 @@ const actions = {
     }
   },
 
-  doChangePaginationAndSort: (
-    pagination,
-    sorter,
-  ) => async (dispatch, getState) => {
+  doChangePaginationAndSort: (pagination, sorter) => async (
+    dispatch,
+    getState,
+  ) => {
     dispatch({
       type: actions.PAGINATION_CHANGED,
       payload: pagination,
@@ -105,7 +105,7 @@ const actions = {
         filter,
         selectors.selectOrderBy(getState()),
         selectors.selectLimit(getState()),
-        selectors.selectOffset(getState()),
+        selectors.select(getState()),
       );
 
       dispatch({

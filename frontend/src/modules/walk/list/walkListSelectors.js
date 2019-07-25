@@ -54,12 +54,15 @@ const selectFilter = createSelector(
   },
 );
 
-const selectLimit = createSelector([selectRaw], (raw) => {
-  const pagination = raw.pagination;
-  return pagination.pageSize;
-});
+const selectLimit = createSelector(
+  [selectRaw],
+  (raw) => {
+    const pagination = raw.pagination;
+    return pagination.pageSize;
+  },
+);
 
-const selectOffset = createSelector(
+const select = createSelector(
   [selectRaw],
   (raw) => {
     const pagination = raw.pagination;

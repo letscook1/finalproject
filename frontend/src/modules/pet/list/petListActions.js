@@ -105,7 +105,7 @@ const actions = {
         filter,
         selectors.selectOrderBy(getState()),
         selectors.selectLimit(getState()),
-        selectors.selectOffset(getState()),
+        selectors.select(getState()),
       );
 
       dispatch({

@@ -21,9 +21,7 @@ class PetRepository extends AbstractRepository {
       'createdAt',
     ];
 
-    this.fileAttributes = [
-
-    ];
+    this.fileAttributes = [];
 
     this.relationToOneAttributes = {
       owner: {
@@ -137,15 +135,12 @@ class PetRepository extends AbstractRepository {
   }
 
   async findById(id, options) {
-    const record = await models.pet.findByPk(
-      id,
-      {
-        include: this._buildIncludeForQueries(),
-        transaction: AbstractRepository.getTransaction(
-          options,
-        ),
-      },
-    );
+    const record = await models.pet.findByPk(id, {
+      include: this._buildIncludeForQueries(),
+      transaction: AbstractRepository.getTransaction(
+        options,
+      ),
+    });
 
     return this._fillNonTableAttributesForRecord(
       record,
@@ -201,27 +196,25 @@ class PetRepository extends AbstractRepository {
     for (const field of Object.keys(
       this.relationToManyAttributes,
     )) {
-      await record[`set${AbstractRepository.jsUcfirst(field)}`](
-        data[field] || [],
-        {
-          transaction: AbstractRepository.getTransaction(
-            options,
-          ),
-        },
-      );
+      await record[
+        `set${AbstractRepository.jsUcfirst(field)}`
+      ](data[field] || [], {
+        transaction: AbstractRepository.getTransaction(
+          options,
+        ),
+      });
     }
 
     for (const field of Object.keys(
       this.relationToOneAttributes,
     )) {
-      await record[`set${AbstractRepository.jsUcfirst(field)}`](
-        data[field] || null,
-        {
-          transaction: AbstractRepository.getTransaction(
-            options,
-          ),
-        },
-      );
+      await record[
+        `set${AbstractRepository.jsUcfirst(field)}`
+      ](data[field] || null, {
+        transaction: AbstractRepository.getTransaction(
+          options,
+        ),
+      });
     }
   }
 
@@ -357,15 +350,26 @@ class PetRepository extends AbstractRepository {
       }
 
       if (filter.name) {
-        sequelizeFilter.appendIlike('name', filter.name, 'pet');
+        sequelizeFilter.appendIlike(
+          'name',
+          filter.name,
+          'pet',
+        );
       }
 
       if (filter.gender) {
-        sequelizeFilter.appendEqual('gender', filter.gender);
+        sequelizeFilter.appendEqual(
+          'gender',
+          filter.gender,
+        );
       }
 
       if (filter.breed) {
-        sequelizeFilter.appendIlike('breed', filter.breed, 'pet');
+        sequelizeFilter.appendIlike(
+          'breed',
+          filter.breed,
+          'pet',
+        );
       }
 
       if (filter.size) {
@@ -400,7 +404,8 @@ class PetRepository extends AbstractRepository {
       where: sequelizeFilter.getWhere(),
       include,
       attributes: requestedAttributesInTable,
-      limit: limit ? limit : undefined,
+      limit: limit ? Number(limit) : undefined,
+
       offset: offset || undefined,
       order: orderBy
         ? [orderBy.split('_')]

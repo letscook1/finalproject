@@ -23,10 +23,7 @@ class WalkRepository extends AbstractRepository {
       'createdAt',
     ];
 
-    this.fileAttributes = [
-      'photos',
-      'receipt',
-    ];
+    this.fileAttributes = ['photos', 'receipt'];
 
     this.relationToOneAttributes = {
       owner: {
@@ -39,9 +36,7 @@ class WalkRepository extends AbstractRepository {
       },
     };
 
-    this.relationToManyAttributes = {
-
-    };
+    this.relationToManyAttributes = {};
   }
 
   async create(data, options) {
@@ -141,15 +136,12 @@ class WalkRepository extends AbstractRepository {
   }
 
   async findById(id, options) {
-    const record = await models.walk.findByPk(
-      id,
-      {
-        include: this._buildIncludeForQueries(),
-        transaction: AbstractRepository.getTransaction(
-          options,
-        ),
-      },
-    );
+    const record = await models.walk.findByPk(id, {
+      include: this._buildIncludeForQueries(),
+      transaction: AbstractRepository.getTransaction(
+        options,
+      ),
+    });
 
     return this._fillNonTableAttributesForRecord(
       record,
@@ -205,27 +197,25 @@ class WalkRepository extends AbstractRepository {
     for (const field of Object.keys(
       this.relationToManyAttributes,
     )) {
-      await record[`set${AbstractRepository.jsUcfirst(field)}`](
-        data[field] || [],
-        {
-          transaction: AbstractRepository.getTransaction(
-            options,
-          ),
-        },
-      );
+      await record[
+        `set${AbstractRepository.jsUcfirst(field)}`
+      ](data[field] || [], {
+        transaction: AbstractRepository.getTransaction(
+          options,
+        ),
+      });
     }
 
     for (const field of Object.keys(
       this.relationToOneAttributes,
     )) {
-      await record[`set${AbstractRepository.jsUcfirst(field)}`](
-        data[field] || null,
-        {
-          transaction: AbstractRepository.getTransaction(
-            options,
-          ),
-        },
-      );
+      await record[
+        `set${AbstractRepository.jsUcfirst(field)}`
+      ](data[field] || null, {
+        transaction: AbstractRepository.getTransaction(
+          options,
+        ),
+      });
     }
   }
 
@@ -379,14 +369,14 @@ class WalkRepository extends AbstractRepository {
       }
 
       if (filter.status) {
-        sequelizeFilter.appendEqual('status', filter.status);
+        sequelizeFilter.appendEqual(
+          'status',
+          filter.status,
+        );
       }
 
       if (filter.feeRange) {
-        sequelizeFilter.appendRange(
-          'fee',
-          filter.feeRange,
-        );
+        sequelizeFilter.appendRange('fee', filter.feeRange);
       }
 
       if (filter.createdAtRange) {
@@ -413,19 +403,22 @@ class WalkRepository extends AbstractRepository {
           ]
         : undefined;
 
-    let { rows, count } = await models.walk.findAndCountAll({
-      where: sequelizeFilter.getWhere(),
-      include,
-      attributes: requestedAttributesInTable,
-      limit: limit ? limit : undefined,
-      offset: offset || undefined,
-      order: orderBy
-        ? [orderBy.split('_')]
-        : [['createdAt', 'DESC']],
-      transaction: AbstractRepository.getTransaction(
-        options,
-      ),
-    });
+    let { rows, count } = await models.walk.findAndCountAll(
+      {
+        where: sequelizeFilter.getWhere(),
+        include,
+        attributes: requestedAttributesInTable,
+        limit: limit ? Number(limit) : undefined,
+
+        offset: offset || undefined,
+        order: orderBy
+          ? [orderBy.split('_')]
+          : [['createdAt', 'DESC']],
+        transaction: AbstractRepository.getTransaction(
+          options,
+        ),
+      },
+    );
 
     rows = await this._fillNonTableAttributesForRows(
       rows,
@@ -443,7 +436,6 @@ class WalkRepository extends AbstractRepository {
 
     if (query) {
       filter.appendId('id', query);
-
     }
 
     const records = await models.walk.findAll({

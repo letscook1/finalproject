@@ -382,7 +382,8 @@ module.exports = class UserRepository extends AbstractRepository {
         attributes: attributes || undefined,
         where: sequelizeFilter.getWhere(),
         include: sequelizeFilter.getInclude(),
-        limit: limit ? limit : undefined,
+        limit: limit ? Number(limit) : undefined,
+
         offset: offset || undefined,
         order: orderBy
           ? [orderBy.split('_')]
